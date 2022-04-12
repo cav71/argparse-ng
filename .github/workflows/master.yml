@@ -36,7 +36,7 @@ jobs:
             pip install setuptools setuptools-github build wheel twine
             pip install -r tests/requirements.txt
 
-      - name: Lint with flake8
+      - name: Lint tests (flake8)
         shell: bash
         env:
           PYTHONPATH: src
@@ -67,12 +67,6 @@ jobs:
               --junitxml=$OUTDIR/junit/junit.xml --html=$OUTDIR/junit/junit.html --self-contained-html \
             tests
 
-      - name: "Upload coverage to Codecov"
-        uses: codecov/codecov-action@v2
-        with:
-          fail_ci_if_error: true
-          files: build/qa-${{ matrix.python-version }}/coverage.xml
-
       - name: Upload pytest test results
         uses: actions/upload-artifact@v2
         with:
@@ -81,4 +75,9 @@ jobs:
         # Use always() to always run this step to publish test results when there are test failures
         if: always()
 
-
+      # CHANGEME un-comment to use codecov server
+      # - name: "Upload coverage to Codecov"
+      #   uses: codecov/codecov-action@v2
+      #   with:
+      #     fail_ci_if_error: true
+      #     files: build/qa-${{ matrix.python-version }}/coverage.xml

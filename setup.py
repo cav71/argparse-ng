@@ -4,9 +4,7 @@ import pathlib
 from setuptools import setup, find_packages
 from setuptools_github import tools
 
-
 initfile = pathlib.Path(__file__).parent / "src" / "argparse_plus" / "__init__.py"
-
 version = tools.update_version(initfile, os.getenv("GITHUB_DUMP"))
 
 setup(
@@ -14,10 +12,7 @@ setup(
     version=version,
     description="An extension to argparse",
     url="https://github.com/cav71/argparse-plus",
-    
-
     packages=find_packages("src"),
-
 
     # CHANGEME adds as many entry points as you need
     entry_points={
