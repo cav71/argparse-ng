@@ -13,6 +13,7 @@ setup(
     description="An extension to argparse",
     url="https://github.com/cav71/argparse-plus",
     packages=find_packages("src"),
+    package_dir={"":"src"},
 
     # CHANGEME adds as many entry points as you need
     entry_points={
