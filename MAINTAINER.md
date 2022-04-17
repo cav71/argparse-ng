@@ -39,11 +39,22 @@ PYTHONPATH=$(pwd) \
 ### Releases
 
 #### master branch
-This will trigger guthub normal build including unit testing
+This will trigger guthub normal build including unit testing, coverage and all the checks.
 
 #### beta/N.M.O branches
+Start from the master branch with an initial version N.M.O:
+```
+    python -c "import argparse_plus; print(argparse_plus.__version__)"
+    N.M.O
+```
 
-Start a new beta branch:
+This will create a new branch beta/N.M.(O+1):
+```
+    ./maintaner/release.py micro src/argparse_plus/__init__.py
+```
+(you can use the -n|--dry-run flag to run without executing)
+
+Push into origin
 ```
 git push origin $(./maintaner/release.py micro argparse_plus)
 ```
