@@ -61,12 +61,13 @@ This will create a new branch beta/N.M.O if no beta/ is present or beta/N.M.(O+1
 
 Push into origin
 ```
-git push --set-upstream origin $(git branch --show-current)
+    git push --set-upstream origin $(git branch --show-current)
 ```
 
 #### tag a commit with N.M.O
-this will close the N.M.O branch and creates a release.
+This will close the N.M.O branch and creates a new release.
 ```
-git tag -m release release/A.B.C
+    git tag -m release release/A.B.C
+    git push origin release/A.B.C
 ```
 
