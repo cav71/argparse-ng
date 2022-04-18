@@ -44,11 +44,11 @@ This will trigger guthub normal build including unit testing, coverage and all t
 #### beta/N.M.O branches
 Start from the master branch with an initial version N.M.O:
 ```
-    python -c "import argparse_plus; print(argparse_plus.__version__)"
+    PYTHONPATH=src python -c "import argparse_plus; print(argparse_plus.__version__)"
     N.M.O
 ```
 
-This will create a new branch beta/N.M.(O+1):
+This will create a new branch beta/N.M.O if no beta/ is present or beta/N.M.(O+1):
 ```
     ./maintaner/release.py micro src/argparse_plus/__init__.py
 ```
@@ -56,7 +56,7 @@ This will create a new branch beta/N.M.(O+1):
 
 Push into origin
 ```
-git push origin $(./maintaner/release.py micro argparse_plus)
+git push --set-upstream origin $(git branch --show-current)
 ```
 
 #### tag a commit with N.M.O
