@@ -50,7 +50,7 @@ jobs:
         shell: bash
         env:
           PYTHONPATH: src
-          OUTDIR: build/qa-${{ matrix.python-version }}
+          OUTDIR: build/qa-${{ matrix.python-version }}-${{ matrix.os}}
         run: |
           mypy src/argparse_plus \
             --no-incremental --xslt-html-report $OUTDIR/mypy
@@ -59,7 +59,7 @@ jobs:
         shell: bash
         env:
           PYTHONPATH: src
-          OUTDIR: build/qa-${{ matrix.python-version }}
+          OUTDIR: build/qa-${{ matrix.python-version }}-${{ matrix.os}}
         run: |
           py.test \
               --cov=argparse_plus \
@@ -71,7 +71,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: pytest-results-${{ matrix.python-version }}
-          path: build/qa-${{ matrix.python-version }}
+          path: build/qa-${{ matrix.python-version }}-${{ matrix.os}}
         # Use always() to always run this step to publish test results when there are test failures
         if: always()
 
