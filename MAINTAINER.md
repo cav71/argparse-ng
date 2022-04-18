@@ -39,10 +39,15 @@ PYTHONPATH=$(pwd) \
 ### Releases
 
 #### master branch
-This will trigger guthub normal build including unit testing, coverage and all the checks.
+Master branch won't release anything to pypi (or conda-forge), but it
+will trigger all the github tests, coverages and code metrics.
 
 #### beta/N.M.O branches
-Start from the master branch with an initial version N.M.O:
+The release process start from the master branch and it will create a "beta" branch (eg. beta/N.M.O):
+this branch will run all the github tests, coverages and code metrics as in the master branch, but on success
+it will deploy on the pypi server. 
+
+To start on the master branch:
 ```
     PYTHONPATH=src python -c "import argparse_plus; print(argparse_plus.__version__)"
     N.M.O
