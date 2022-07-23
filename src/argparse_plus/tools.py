@@ -11,4 +11,3 @@ def indent(txt: str, pre: str = " " * 2) -> str:
         last_eol = ""
 
     return pre + txt.replace("\n", "\n" + pre) + last_eol
-

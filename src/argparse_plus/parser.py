@@ -1,17 +1,22 @@
 from __future__ import annotations
 
 import argparse
-from typing import Sequence, Optional, Tuple, Dict, Any
+from typing import Sequence, Optional, Any
 
-from . import tools
 
 def get_formatter_class(formatter=None):
-    from argparse import ArgumentDefaultsHelpFormatter, RawDescriptionHelpFormatter, RawTextHelpFormatter
+    from argparse import (
+        ArgumentDefaultsHelpFormatter,
+        RawTextHelpFormatter,
+    )
+
     if formatter == "test":
         formatter = RawTextHelpFormatter
     elif not formatter:
+
         class Formatter(ArgumentDefaultsHelpFormatter, RawTextHelpFormatter):
             pass
+
         formatter = Formatter
     return formatter
 
@@ -30,7 +35,9 @@ class ArgumentParser(argparse.ArgumentParser):
         self.argument_default = ArgumentParser.NotAssigned(ArgumentParser.NotAssigned)
 
     def parse_known_args(
-        self, args: Optional[Sequence[str]]=None, namespace: Optional[argparse.Namespace] = None
+        self,
+        args: Optional[Sequence[str]] = None,
+        namespace: Optional[argparse.Namespace] = None,
     ) -> tuple[argparse.Namespace, list[str]]:
 
         return super().parse_known_args(args, namespace)

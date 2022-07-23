@@ -1,1 +1,1 @@
-from .parser import ArgumentParser
+from .parser import ArgumentParser  # noqa
