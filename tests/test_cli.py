@@ -27,6 +27,7 @@ def test_cli_help(cli):
     txt = cli._print_message.call_args[0][0].strip()
     if sys.version_info < (3, 10):
         txt = txt.replace("\npositional arguments:\n", "\noptions:\n")
+        txt = txt.replace("\noptional arguments:\n", "\noptions:\n")
     assert (
         txt
         == """
