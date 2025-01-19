@@ -1,11 +1,11 @@
 repos:
--   repo: https://github.com/psf/black
-    rev: 22.3.0
+  - repo: local
     hooks:
-    - id: black
-
--   repo: https://gitlab.com/pycqa/flake8
-    rev: 4.0.1
-    hooks:
-    - id: flake8
-
+      - id: ruff-format
+        name: ruff - format
+        description: "Run 'ruff' to format files"
+        entry: ruff format
+        language: system
+        types_or: [python, pyi]
+        require_serial: true
+        additional_dependencies: []

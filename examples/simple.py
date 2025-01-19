@@ -2,6 +2,7 @@
 
 from argparse_plus import api
 
+
 def parse_args(argv=None):
     parser = api.ArgumentParser()
 
@@ -9,8 +10,10 @@ def parse_args(argv=None):
     options = parser.parse_args(argv)
     return options.__dict__
 
+
 def main(value):
     print("HELLO", value)
+
 
 if __name__ == "__main__":
     main(**parse_args())

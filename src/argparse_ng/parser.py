@@ -39,5 +39,4 @@ class ArgumentParser(argparse.ArgumentParser):
         args: Optional[Sequence[str]] = None,
         namespace: Optional[argparse.Namespace] = None,
     ) -> tuple[argparse.Namespace, list[str]]:
-
         return super().parse_known_args(args, namespace)

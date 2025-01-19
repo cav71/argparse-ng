@@ -35,8 +35,7 @@ Documentation = "https://github.com/cav71/argparse-ng"
 target-version = "py39"
 line-length = 88
 src = ["src/argparse_ng"]
-exclude = [
-]
+exclude = []
 
 [tool.ruff.format]
 quote-style = "double"
