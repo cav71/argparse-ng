@@ -1,13 +1,14 @@
 import contextlib
 import sys
 from unittest import mock
-from argparse_plus import parser
+
 import pytest
+from argparse_plus import parser
 
 
 @pytest.fixture(scope="function")
 def cli():
-    from argparse import Namespace, ArgumentParser
+    from argparse import ArgumentParser, Namespace
 
     with contextlib.ExitStack() as stack:
         mcks = {}

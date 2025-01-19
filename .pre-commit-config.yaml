@@ -3,9 +3,17 @@ repos:
     hooks:
       - id: ruff-format
         name: ruff - format
-        description: "Run 'ruff' to format files"
+        description: "format files"
         entry: ruff format
         language: system
+        types_or: [python, pyi]
+        require_serial: true
+        additional_dependencies: []
+      - id: ruff-check
+        name: ruff - check
+        description: "linting files"
+        language: system
+        entry: ruff check --fix
         types_or: [python, pyi]
         require_serial: true
         additional_dependencies: []

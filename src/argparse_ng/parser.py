@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import argparse
-from typing import Sequence, Optional, Any
+from typing import Any, Optional, Sequence
 
 
 def get_formatter_class(formatter=None):
