@@ -25,7 +25,6 @@ classifiers = [
   "Programming Language :: Python :: 3.13",
 ]
 
-
 [project.urls]
 Source = "https://github.com/cav71/argparse-ng"
 Issues = "https://github.com/cav71/argparse-ng/issues"
@@ -35,8 +34,7 @@ Documentation = "https://github.com/cav71/argparse-ng"
 target-version = "py39"
 line-length = 88
 src = ["src/argparse_ng"]
-exclude = [
-]
+exclude = []
 
 [tool.ruff.format]
 quote-style = "double"
@@ -47,7 +45,6 @@ select = ["F", "E", "W", "Q", "I001"]
 
 [tool.ruff.lint.isort]
 known-first-party = ["argparse_ng"]
-
 
 [tool.mypy]
 disallow_untyped_defs = false

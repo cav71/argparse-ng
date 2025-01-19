@@ -1,0 +1,107 @@
+name: Master build
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - '*'
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+env:
+  PACKAGE: argparse-ng
+  GITHUB_DUMP: ${{ toJson(github) }}
+  XPY: "3.12"
+  XOS: "ubuntu-latest"
+
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.0
+        with:
+          ref: ${{ github.event.push.ref }}
+
+      - name: Set up Python interpreter [${{ matrix.python-version }}]
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Python dependencies
+        shell: bash
+        run: |
+            python -m pip install --upgrade pip
+            pip install -r tests/requirements.txt
+
+      - name: Run Python checks (ruff)
+        shell: bash
+        env:
+          PYTHONPATH: src
+        run: |
+           ruff check src tests
+
+      - name: Run Python checks (mypy)
+        shell: bash
+        env:
+          PYTHONPATH: src
+          OUTDIR: build/qa-${{ matrix.python-version }}-${{ matrix.os}}
+        run: |
+          mypy src \
+            --no-incremental --xslt-html-report $OUTDIR/mypy
+
+      - name: Run Python tests
+        shell: bash
+        env:
+          PYTHONPATH: src
+          OUTDIR: build/qa-${{ matrix.python-version }}-${{ matrix.os}}
+        run: |
+          py.test \
+              --cov=${{ env.PACKAGE }} \
+              --cov-report=html:$OUTDIR/coverage --cov-report=xml:$OUTDIR/coverage.xml \
+              --junitxml=$OUTDIR/junit/junit.xml --html=$OUTDIR/junit/junit.html --self-contained-html \
+            tests
+
+      - name: Dump env
+        shell: bash
+        run: |
+          echo "github env:"
+          echo "$GITHUB_DUMP"
+
+      - name: Build wheel packages
+        if: ${{ ! contains(matrix.os, 'windows') }}
+        run: |
+          python support/release.py src/luxos/version.py
+          touch .keepme
+
+      # CHANGEME un-comment to publish to pypi
+      # - name: "Publish beta package to pypi"
+      #   uses: pypa/gh-action-pypi-publish@release/v1
+      #   if: ${{ (matrix.python-version == env.XPY) && (matrix.os == env.XOS) }}
+      #   with:
+      #     password: ${{ secrets.PYPI_API_TOKEN }}
+
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: qa-results-${{ matrix.python-version }}-${{ matrix.os }}
+          path: |
+            build/qa-${{ matrix.python-version }}-${{ matrix.os}}
+            dist
+            .keepme
+        # Use always() to always run this step to publish test results when there are test failures
+        if: always()
+
+      # CHANGEME un-comment to use codecov server
+      # - name: "Upload coverage to Codecov"
+      #   uses: codecov/codecov-action@v2
+      #   with:
+      #     fail_ci_if_error: true
+      #     files: build/qa-${{ matrix.python-version }}/coverage.xml
