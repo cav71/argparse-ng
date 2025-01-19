@@ -3,7 +3,7 @@ requires = ["setuptools>=68.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "argparse-plus"
+name = "argparse-ng"
 version = "0.0.0"
 description = "A small argparse utility"
 readme = "README.md"
@@ -27,14 +27,14 @@ classifiers = [
 
 
 [project.urls]
-Source = "https://github.com/cav71/argparse-plus"
-Issues = "https://github.com/cav71/argparse-plus/issues"
-Documentation = "https://github.com/cav71/argparse-plus"
+Source = "https://github.com/cav71/argparse-ng"
+Issues = "https://github.com/cav71/argparse-ng/issues"
+Documentation = "https://github.com/cav71/argparse-ng"
 
 [tool.ruff]
 target-version = "py39"
 line-length = 88
-src = ["src/argparse_plus"]
+src = ["src/argparse_ng"]
 exclude = [
 ]
 
@@ -46,7 +46,7 @@ ignore = []
 select = ["F", "E", "W", "Q", "I001"]
 
 [tool.ruff.lint.isort]
-known-first-party = ["argparse_plus"]
+known-first-party = ["argparse_ng"]
 
 
 [tool.mypy]
