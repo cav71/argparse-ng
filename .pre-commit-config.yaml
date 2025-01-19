@@ -17,3 +17,11 @@ repos:
         types_or: [python, pyi]
         require_serial: true
         additional_dependencies: []
+      - id: mypy
+        name: mypy
+        description: "static checks"
+        language: system
+        entry: mypy
+        types_or: [python, pyi]
+        require_serial: true
+        additional_dependencies: []
